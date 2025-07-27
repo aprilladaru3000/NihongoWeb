@@ -164,6 +164,108 @@
       </div>
     </section>
 
+    <!-- Fitur Interaktif Section -->
+    <section class="container mx-auto px-6 py-16 fade-in">
+      <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-[#e60012]">Fitur Interaktif</h2>
+      
+      <!-- Kalkulator Biaya -->
+      <div class="mb-16">
+        <h3 class="text-2xl font-bold mb-8 text-center text-[#e60012] flex items-center justify-center">
+          <span class="text-3xl mr-3">💰</span>
+          Kalkulator Biaya Kursus
+        </h3>
+        <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-8 card-hover dark:bg-gray-800">
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label class="block mb-2 font-semibold text-gray-700 dark:text-gray-300">Pilih Kelas</label>
+              <select id="kelas-select" class="w-full border-2 border-gray-200 rounded-lg px-4 py-3 focus:border-[#e60012] focus:outline-none transition-colors duration-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                <option value="">Pilih kelas...</option>
+                <option value="1200000">Kelas Dasar (N5) - Rp1.200.000</option>
+                <option value="1500000">Kelas Menengah (N4-N3) - Rp1.500.000</option>
+                <option value="900000">Persiapan JLPT - Rp900.000</option>
+                <option value="0">Kelas Budaya Jepang - Gratis</option>
+              </select>
+            </div>
+            <div>
+              <label class="block mb-2 font-semibold text-gray-700 dark:text-gray-300">Jumlah Peserta</label>
+              <input type="number" id="jumlah-peserta" min="1" max="10" value="1" class="w-full border-2 border-gray-200 rounded-lg px-4 py-3 focus:border-[#e60012] focus:outline-none transition-colors duration-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            </div>
+          </div>
+          <div class="mt-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <div class="text-center">
+              <p class="text-sm text-gray-600 dark:text-gray-400">Total Biaya</p>
+              <p id="total-biaya" class="text-3xl font-bold text-[#e60012]">Rp0</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz Bahasa Jepang -->
+      <div class="mb-16">
+        <h3 class="text-2xl font-bold mb-8 text-center text-[#e60012] flex items-center justify-center">
+          <span class="text-3xl mr-3">🎯</span>
+          Quiz Bahasa Jepang
+        </h3>
+        <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-8 card-hover dark:bg-gray-800">
+          <div id="quiz-container">
+            <div id="quiz-start" class="text-center">
+              <p class="text-lg mb-6 text-gray-700 dark:text-gray-300">Test pengetahuan bahasa Jepang Anda!</p>
+              <button id="start-quiz" class="gradient-bg text-white px-8 py-4 rounded-lg shadow-lg hover:shadow-xl btn-hover font-semibold text-lg">Mulai Quiz</button>
+            </div>
+            <div id="quiz-question" class="hidden">
+              <div class="mb-6">
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Pertanyaan <span id="question-number">1</span> dari 5</p>
+                <h4 id="question-text" class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-6"></h4>
+                <div id="question-options" class="space-y-3"></div>
+              </div>
+              <div class="flex justify-between items-center">
+                <button id="prev-question" class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 transition-colors hidden">Sebelumnya</button>
+                <button id="next-question" class="gradient-bg text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors">Selanjutnya</button>
+              </div>
+            </div>
+            <div id="quiz-result" class="hidden text-center">
+              <h4 class="text-2xl font-bold text-[#e60012] mb-4">Hasil Quiz</h4>
+              <p class="text-lg mb-4">Skor Anda: <span id="quiz-score" class="font-bold text-[#e60012]">0</span>/5</p>
+              <p id="quiz-feedback" class="text-gray-700 dark:text-gray-300 mb-6"></p>
+              <button id="restart-quiz" class="gradient-bg text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors">Coba Lagi</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial Slider -->
+      <div>
+        <h3 class="text-2xl font-bold mb-8 text-center text-[#e60012] flex items-center justify-center">
+          <span class="text-3xl mr-3">💬</span>
+          Testimonial Siswa
+        </h3>
+        <div class="max-w-4xl mx-auto">
+          <div class="relative">
+            <div id="testimonial-container" class="bg-white rounded-2xl shadow-xl p-8 card-hover dark:bg-gray-800">
+              <div class="text-center">
+                <div class="text-4xl mb-4">⭐</div>
+                <p id="testimonial-text" class="text-lg text-gray-700 dark:text-gray-300 mb-6 italic">"Belajar di Nihongo Kulon Progo sangat menyenangkan. Pengajar ramah dan materi mudah dipahami."</p>
+                <div class="flex items-center justify-center">
+                  <img id="testimonial-avatar" src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=60&h=60&fit=crop&crop=face" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
+                  <div class="text-left">
+                    <p id="testimonial-name" class="font-semibold text-gray-800 dark:text-gray-200">Sarah Johnson</p>
+                    <p id="testimonial-class" class="text-sm text-gray-600 dark:text-gray-400">Kelas Dasar (N5)</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button id="prev-testimonial" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white dark:bg-gray-700 p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+              <span class="text-xl">←</span>
+            </button>
+            <button id="next-testimonial" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white dark:bg-gray-700 p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+              <span class="text-xl">→</span>
+            </button>
+          </div>
+          <div class="flex justify-center mt-6 space-x-2" id="testimonial-dots"></div>
+        </div>
+      </div>
+    </section>
+
     <!-- Tentang Kami Section -->
     <section id="tentang" class="container mx-auto px-6 py-16 fade-in">
       <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-[#e60012]">Tentang Kami</h2>

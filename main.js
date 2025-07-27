@@ -252,4 +252,246 @@ window.addEventListener('load', () => {
   setTimeout(() => {
     document.body.style.opacity = '1';
   }, 100);
-}); 
+});
+
+// ===== FITUR INTERAKTIF =====
+
+// Kalkulator Biaya Kursus
+const kelasSelect = document.getElementById('kelas-select');
+const jumlahPeserta = document.getElementById('jumlah-peserta');
+const totalBiaya = document.getElementById('total-biaya');
+
+function updateKalkulator() {
+  const hargaKelas = parseInt(kelasSelect.value) || 0;
+  const jumlah = parseInt(jumlahPeserta.value) || 1;
+  const total = hargaKelas * jumlah;
+  
+  if (hargaKelas === 0) {
+    totalBiaya.textContent = 'Gratis';
+  } else {
+    totalBiaya.textContent = 'Rp' + total.toLocaleString();
+  }
+}
+
+if (kelasSelect && jumlahPeserta) {
+  kelasSelect.addEventListener('change', updateKalkulator);
+  jumlahPeserta.addEventListener('input', updateKalkulator);
+}
+
+// Quiz Bahasa Jepang
+const quizData = [
+  {
+    question: "Apa arti 'Konnichiwa' dalam bahasa Indonesia?",
+    options: ["Selamat pagi", "Selamat siang", "Selamat malam", "Terima kasih"],
+    correct: 1
+  },
+  {
+    question: "Huruf Jepang yang digunakan untuk menulis kata serapan disebut...",
+    options: ["Hiragana", "Katakana", "Kanji", "Romaji"],
+    correct: 1
+  },
+  {
+    question: "Apa arti 'Arigatou gozaimasu'?",
+    options: ["Selamat datang", "Terima kasih", "Maaf", "Sampai jumpa"],
+    correct: 1
+  },
+  {
+    question: "JLPT N5 adalah level...",
+    options: ["Paling dasar", "Menengah", "Lanjutan", "Mahir"],
+    correct: 0
+  },
+  {
+    question: "Apa arti 'Sensei' dalam bahasa Indonesia?",
+    options: ["Murid", "Guru", "Teman", "Keluarga"],
+    correct: 1
+  }
+];
+
+let currentQuestion = 0;
+let userAnswers = [];
+let quizStarted = false;
+
+const startQuizBtn = document.getElementById('start-quiz');
+const quizStart = document.getElementById('quiz-start');
+const quizQuestion = document.getElementById('quiz-question');
+const quizResult = document.getElementById('quiz-result');
+
+if (startQuizBtn) {
+  startQuizBtn.addEventListener('click', () => {
+    quizStarted = true;
+    currentQuestion = 0;
+    userAnswers = [];
+    showQuestion();
+  });
+}
+
+function showQuestion() {
+  if (currentQuestion >= quizData.length) {
+    showResult();
+    return;
+  }
+
+  const question = quizData[currentQuestion];
+  document.getElementById('question-number').textContent = currentQuestion + 1;
+  document.getElementById('question-text').textContent = question.question;
+  
+  const optionsContainer = document.getElementById('question-options');
+  optionsContainer.innerHTML = '';
+  
+  question.options.forEach((option, index) => {
+    const button = document.createElement('button');
+    button.className = `w-full text-left p-3 rounded-lg border-2 transition-colors duration-300 ${
+      userAnswers[currentQuestion] === index 
+        ? 'border-[#e60012] bg-red-50 dark:bg-red-900/20' 
+        : 'border-gray-200 hover:border-gray-300 dark:border-gray-600 dark:hover:border-gray-500'
+    }`;
+    button.textContent = option;
+    button.addEventListener('click', () => selectOption(index));
+    optionsContainer.appendChild(button);
+  });
+
+  // Show/hide navigation buttons
+  document.getElementById('prev-question').classList.toggle('hidden', currentQuestion === 0);
+  document.getElementById('next-question').textContent = currentQuestion === quizData.length - 1 ? 'Selesai' : 'Selanjutnya';
+  
+  quizStart.classList.add('hidden');
+  quizQuestion.classList.remove('hidden');
+  quizResult.classList.add('hidden');
+}
+
+function selectOption(optionIndex) {
+  userAnswers[currentQuestion] = optionIndex;
+  
+  // Update button styles
+  const buttons = document.querySelectorAll('#question-options button');
+  buttons.forEach((button, index) => {
+    button.className = `w-full text-left p-3 rounded-lg border-2 transition-colors duration-300 ${
+      index === optionIndex 
+        ? 'border-[#e60012] bg-red-50 dark:bg-red-900/20' 
+        : 'border-gray-200 dark:border-gray-600'
+    }`;
+  });
+}
+
+function showResult() {
+  const correctAnswers = userAnswers.filter((answer, index) => answer === quizData[index].correct).length;
+  const score = correctAnswers;
+  
+  document.getElementById('quiz-score').textContent = score;
+  
+  let feedback = '';
+  if (score === 5) {
+    feedback = 'Excellent! Anda sangat menguasai dasar bahasa Jepang! 🎉';
+  } else if (score >= 3) {
+    feedback = 'Bagus! Anda memiliki pemahaman yang baik tentang bahasa Jepang.';
+  } else if (score >= 1) {
+    feedback = 'Tidak buruk! Belajar lebih lanjut untuk meningkatkan kemampuan Anda.';
+  } else {
+    feedback = 'Jangan khawatir! Mari belajar bersama di Nihongo Kulon Progo! 📚';
+  }
+  
+  document.getElementById('quiz-feedback').textContent = feedback;
+  
+  quizQuestion.classList.add('hidden');
+  quizResult.classList.remove('hidden');
+}
+
+// Quiz navigation
+document.getElementById('prev-question')?.addEventListener('click', () => {
+  if (currentQuestion > 0) {
+    currentQuestion--;
+    showQuestion();
+  }
+});
+
+document.getElementById('next-question')?.addEventListener('click', () => {
+  if (userAnswers[currentQuestion] !== undefined) {
+    currentQuestion++;
+    showQuestion();
+  } else {
+    alert('Silakan pilih jawaban terlebih dahulu!');
+  }
+});
+
+document.getElementById('restart-quiz')?.addEventListener('click', () => {
+  quizStarted = false;
+  currentQuestion = 0;
+  userAnswers = [];
+  quizStart.classList.remove('hidden');
+  quizQuestion.classList.add('hidden');
+  quizResult.classList.add('hidden');
+});
+
+// Testimonial Slider
+const testimonials = [
+  {
+    text: "Belajar di Nihongo Kulon Progo sangat menyenangkan. Pengajar ramah dan materi mudah dipahami.",
+    name: "Sarah Johnson",
+    class: "Kelas Dasar (N5)",
+    avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=60&h=60&fit=crop&crop=face"
+  },
+  {
+    text: "Sensei Ayumi sangat sabar mengajar. Sekarang saya sudah bisa bercakap-cakap dalam bahasa Jepang!",
+    name: "Ahmad Rizki",
+    class: "Kelas Menengah (N4-N3)",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face"
+  },
+  {
+    text: "Suasana belajar nyaman dan tidak membosankan. Saya berhasil lulus JLPT N5!",
+    name: "Maria Garcia",
+    class: "Persiapan JLPT",
+    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=60&h=60&fit=crop&crop=face"
+  },
+  {
+    text: "Kelas budaya Jepang sangat menarik. Saya belajar origami dan kaligrafi Jepang!",
+    name: "Budi Santoso",
+    class: "Kelas Budaya Jepang",
+    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face"
+  }
+];
+
+let currentTestimonial = 0;
+
+function showTestimonial(index) {
+  const testimonial = testimonials[index];
+  document.getElementById('testimonial-text').textContent = testimonial.text;
+  document.getElementById('testimonial-name').textContent = testimonial.name;
+  document.getElementById('testimonial-class').textContent = testimonial.class;
+  document.getElementById('testimonial-avatar').src = testimonial.avatar;
+  
+  // Update dots
+  const dotsContainer = document.getElementById('testimonial-dots');
+  dotsContainer.innerHTML = '';
+  testimonials.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = `w-3 h-3 rounded-full transition-colors duration-300 ${
+      i === index ? 'bg-[#e60012]' : 'bg-gray-300 dark:bg-gray-600'
+    }`;
+    dot.addEventListener('click', () => showTestimonial(i));
+    dotsContainer.appendChild(dot);
+  });
+}
+
+// Testimonial navigation
+document.getElementById('prev-testimonial')?.addEventListener('click', () => {
+  currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+  showTestimonial(currentTestimonial);
+});
+
+document.getElementById('next-testimonial')?.addEventListener('click', () => {
+  currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+  showTestimonial(currentTestimonial);
+});
+
+// Auto-rotate testimonials
+setInterval(() => {
+  if (document.getElementById('testimonial-container')) {
+    currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+    showTestimonial(currentTestimonial);
+  }
+}, 5000);
+
+// Initialize testimonials
+if (document.getElementById('testimonial-container')) {
+  showTestimonial(0);
+} 
