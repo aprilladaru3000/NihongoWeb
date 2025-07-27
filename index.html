@@ -13,39 +13,83 @@
     .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
     .btn-hover { transition: all 0.3s ease; }
     .btn-hover:hover { transform: scale(1.05); }
+    
+    /* Dark mode styles */
+    .dark body { background-color: #1a1a1a; color: #ffffff; }
+    .dark .bg-white { background-color: #2d2d2d; }
+    .dark .bg-gray-50 { background-color: #1a1a1a; }
+    .dark .bg-gray-100 { background-color: #2d2d2d; }
+    .dark .bg-gray-200 { background-color: #404040; }
+    .dark .text-gray-900 { color: #ffffff; }
+    .dark .text-gray-700 { color: #e5e5e5; }
+    .dark .text-gray-600 { color: #d1d5db; }
+    .dark .border-gray-300 { border-color: #404040; }
+    .dark .border-gray-200 { border-color: #404040; }
+    
+    /* Loading animation */
+    .loading { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+    
+    /* Fade in animation */
+    .fade-in { animation: fadeIn 0.6s ease-in; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    
+    /* Progress bar */
+    .progress-bar { height: 3px; background: linear-gradient(90deg, #e60012, #ff1a1a); position: fixed; top: 0; left: 0; z-index: 9999; }
+    
+    /* Back to top button */
+    .back-to-top { position: fixed; bottom: 20px; right: 20px; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+    .back-to-top.show { opacity: 1; visibility: visible; }
+    
+    /* Smooth scroll */
+    html { scroll-behavior: smooth; }
+    
+    /* Loading spinner */
+    .spinner { animation: spin 1s linear infinite; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
   </style>
 </head>
-<body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen">
+<body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen transition-colors duration-300">
+  <!-- Progress Bar -->
+  <div class="progress-bar" id="progress-bar"></div>
+
   <!-- Navigation -->
-  <nav class="bg-white/95 backdrop-blur-sm shadow-lg fixed w-full z-10">
+  <nav class="bg-white/95 backdrop-blur-sm shadow-lg fixed w-full z-10 transition-colors duration-300">
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
       <div class="text-2xl font-bold text-[#e60012] hover:text-red-700 transition-colors duration-300">Nihongo Kulon Progo</div>
-      <button id="nav-toggle" class="md:hidden text-2xl hover:text-[#e60012] transition-colors duration-300">☰</button>
-      <ul id="nav-menu" class="hidden md:flex space-x-8 font-semibold">
-        <li><a href="#beranda" class="hover:text-[#e60012] transition-colors duration-300 relative group">
-          Beranda
-          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#e60012] transition-all duration-300 group-hover:w-full"></span>
-        </a></li>
-        <li><a href="#program" class="hover:text-[#e60012] transition-colors duration-300 relative group">
-          Program
-          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#e60012] transition-all duration-300 group-hover:w-full"></span>
-        </a></li>
-        <li><a href="#tentang" class="hover:text-[#e60012] transition-colors duration-300 relative group">
-          Tentang Kami
-          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#e60012] transition-all duration-300 group-hover:w-full"></span>
-        </a></li>
-        <li><a href="#kontak" class="hover:text-[#e60012] transition-colors duration-300 relative group">
-          Kontak
-          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#e60012] transition-all duration-300 group-hover:w-full"></span>
-        </a></li>
-      </ul>
+      <div class="flex items-center space-x-4">
+        <button id="nav-toggle" class="md:hidden text-2xl hover:text-[#e60012] transition-colors duration-300">☰</button>
+        <ul id="nav-menu" class="hidden md:flex space-x-8 font-semibold">
+          <li><a href="#beranda" class="hover:text-[#e60012] transition-colors duration-300 relative group">
+            Beranda
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#e60012] transition-all duration-300 group-hover:w-full"></span>
+          </a></li>
+          <li><a href="#program" class="hover:text-[#e60012] transition-colors duration-300 relative group">
+            Program
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#e60012] transition-all duration-300 group-hover:w-full"></span>
+          </a></li>
+          <li><a href="#tentang" class="hover:text-[#e60012] transition-colors duration-300 relative group">
+            Tentang Kami
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#e60012] transition-all duration-300 group-hover:w-full"></span>
+          </a></li>
+          <li><a href="#kontak" class="hover:text-[#e60012] transition-colors duration-300 relative group">
+            Kontak
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#e60012] transition-all duration-300 group-hover:w-full"></span>
+          </a></li>
+        </ul>
+        <!-- Dark Mode Toggle -->
+        <button id="dark-mode-toggle" class="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors duration-300 dark:bg-gray-700 dark:hover:bg-gray-600">
+          <span id="dark-icon" class="text-lg">🌙</span>
+          <span id="light-icon" class="text-lg hidden">☀️</span>
+        </button>
+      </div>
     </div>
   </nav>
 
   <!-- Main Content -->
   <main class="flex-1 pt-20">
     <!-- Hero Section -->
-    <section id="beranda" class="relative bg-cover bg-center h-[80vh] flex items-center justify-center" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('hero.jpg');">
+    <section id="beranda" class="relative bg-cover bg-center h-[80vh] flex items-center justify-center fade-in" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('hero.jpg');">
       <div class="bg-black/60 backdrop-blur-sm p-10 rounded-2xl text-center max-w-4xl mx-4">
         <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">Selamat Datang di <span class="text-red-400">Nihongo Kulon Progo</span></h1>
         <p class="text-xl md:text-2xl text-gray-200 mb-8 leading-relaxed">Belajar Bahasa & Budaya Jepang di Kulon Progo, Yogyakarta</p>
@@ -57,60 +101,60 @@
     </section>
 
     <!-- Deskripsi Sekolah -->
-    <section class="container mx-auto px-6 py-16 text-center">
+    <section class="container mx-auto px-6 py-16 text-center fade-in">
       <div class="max-w-4xl mx-auto">
         <h2 class="text-3xl md:text-4xl font-bold mb-8 text-[#e60012]">Tentang Nihongo Kulon Progo</h2>
-        <div class="bg-white rounded-2xl shadow-xl p-8 card-hover">
-          <p class="text-lg mb-6 leading-relaxed text-gray-700">Nihongo Kulon Progo adalah sekolah bahasa Jepang yang berlokasi di Kulon Progo, Yogyakarta. Kami berkomitmen untuk memberikan pendidikan bahasa Jepang yang berkualitas dengan pengajar berpengalaman dan program yang terstruktur.</p>
-          <p class="text-lg leading-relaxed text-gray-700">Keunggulan kami: <span class="font-semibold text-[#e60012]">pengajar profesional, suasana belajar nyaman, dan materi terupdate sesuai kebutuhan JLPT dan budaya Jepang.</span></p>
+        <div class="bg-white rounded-2xl shadow-xl p-8 card-hover dark:bg-gray-800">
+          <p class="text-lg mb-6 leading-relaxed text-gray-700 dark:text-gray-300">Nihongo Kulon Progo adalah sekolah bahasa Jepang yang berlokasi di Kulon Progo, Yogyakarta. Kami berkomitmen untuk memberikan pendidikan bahasa Jepang yang berkualitas dengan pengajar berpengalaman dan program yang terstruktur.</p>
+          <p class="text-lg leading-relaxed text-gray-700 dark:text-gray-300">Keunggulan kami: <span class="font-semibold text-[#e60012]">pengajar profesional, suasana belajar nyaman, dan materi terupdate sesuai kebutuhan JLPT dan budaya Jepang.</span></p>
         </div>
       </div>
     </section>
 
     <!-- Program Section -->
-    <section id="program" class="bg-gradient-to-br from-gray-100 to-gray-200 py-16">
+    <section id="program" class="bg-gradient-to-br from-gray-100 to-gray-200 py-16 dark:from-gray-800 dark:to-gray-900 fade-in">
       <div class="container mx-auto px-6">
         <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-[#e60012]">Program & Kelas</h2>
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           <!-- Kelas Dasar (N5) -->
-          <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col card-hover border-l-4 border-[#e60012]">
+          <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col card-hover border-l-4 border-[#e60012] dark:bg-gray-800">
             <div class="text-4xl mb-4">🎌</div>
             <h3 class="text-xl font-bold mb-4 text-[#e60012]">Kelas Dasar (N5)</h3>
-            <p class="mb-4 text-gray-600 flex-grow">Belajar huruf, kosakata, dan percakapan dasar. Cocok untuk pemula.</p>
-            <div class="space-y-2 text-sm text-gray-500">
+            <p class="mb-4 text-gray-600 dark:text-gray-300 flex-grow">Belajar huruf, kosakata, dan percakapan dasar. Cocok untuk pemula.</p>
+            <div class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
               <p><span class="font-semibold">⏱️ Durasi:</span> 4 bulan</p>
               <p><span class="font-semibold">💰 Harga:</span> Rp1.200.000</p>
               <p><span class="font-semibold">📅 Jadwal:</span> Sabtu & Minggu, 09.00–11.00</p>
             </div>
           </div>
           <!-- Kelas Menengah (N4–N3) -->
-          <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col card-hover border-l-4 border-[#e60012]">
+          <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col card-hover border-l-4 border-[#e60012] dark:bg-gray-800">
             <div class="text-4xl mb-4">📚</div>
             <h3 class="text-xl font-bold mb-4 text-[#e60012]">Kelas Menengah (N4–N3)</h3>
-            <p class="mb-4 text-gray-600 flex-grow">Pendalaman tata bahasa, kanji, dan percakapan menengah.</p>
-            <div class="space-y-2 text-sm text-gray-500">
+            <p class="mb-4 text-gray-600 dark:text-gray-300 flex-grow">Pendalaman tata bahasa, kanji, dan percakapan menengah.</p>
+            <div class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
               <p><span class="font-semibold">⏱️ Durasi:</span> 6 bulan</p>
               <p><span class="font-semibold">💰 Harga:</span> Rp1.500.000</p>
               <p><span class="font-semibold">📅 Jadwal:</span> Sabtu & Minggu, 13.00–15.00</p>
             </div>
           </div>
           <!-- Persiapan JLPT -->
-          <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col card-hover border-l-4 border-[#e60012]">
+          <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col card-hover border-l-4 border-[#e60012] dark:bg-gray-800">
             <div class="text-4xl mb-4">🎯</div>
             <h3 class="text-xl font-bold mb-4 text-[#e60012]">Persiapan JLPT</h3>
-            <p class="mb-4 text-gray-600 flex-grow">Kelas intensif untuk persiapan ujian JLPT N5–N3.</p>
-            <div class="space-y-2 text-sm text-gray-500">
+            <p class="mb-4 text-gray-600 dark:text-gray-300 flex-grow">Kelas intensif untuk persiapan ujian JLPT N5–N3.</p>
+            <div class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
               <p><span class="font-semibold">⏱️ Durasi:</span> 2 bulan</p>
               <p><span class="font-semibold">💰 Harga:</span> Rp900.000</p>
               <p><span class="font-semibold">📅 Jadwal:</span> Minggu, 16.00–18.00</p>
             </div>
           </div>
           <!-- Kelas Budaya Jepang -->
-          <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col card-hover border-l-4 border-[#e60012]">
+          <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col card-hover border-l-4 border-[#e60012] dark:bg-gray-800">
             <div class="text-4xl mb-4">🌸</div>
             <h3 class="text-xl font-bold mb-4 text-[#e60012]">Kelas Budaya Jepang</h3>
-            <p class="mb-4 text-gray-600 flex-grow">Mengenal budaya, seni, dan tradisi Jepang. Bonus untuk semua peserta!</p>
-            <div class="space-y-2 text-sm text-gray-500">
+            <p class="mb-4 text-gray-600 dark:text-gray-300 flex-grow">Mengenal budaya, seni, dan tradisi Jepang. Bonus untuk semua peserta!</p>
+            <div class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
               <p><span class="font-semibold">⏱️ Durasi:</span> 1 bulan</p>
               <p><span class="font-semibold">💰 Harga:</span> <span class="text-green-600 font-bold">Gratis</span></p>
               <p><span class="font-semibold">📅 Jadwal:</span> Sabtu, 15.30–17.00</p>
@@ -121,7 +165,7 @@
     </section>
 
     <!-- Tentang Kami Section -->
-    <section id="tentang" class="container mx-auto px-6 py-16">
+    <section id="tentang" class="container mx-auto px-6 py-16 fade-in">
       <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-[#e60012]">Tentang Kami</h2>
       <div class="md:flex md:space-x-12 items-center">
         <div class="md:w-1/2 mb-8 md:mb-0">
@@ -135,57 +179,63 @@
           </div>
         </div>
         <div class="md:w-1/2 space-y-8">
-          <div class="bg-white rounded-2xl shadow-lg p-8 card-hover">
+          <div class="bg-white rounded-2xl shadow-lg p-8 card-hover dark:bg-gray-800">
             <h3 class="text-2xl font-bold mb-4 text-[#e60012] flex items-center">
               <span class="text-3xl mr-3">👩‍🏫</span>
               Profil Pengajar
             </h3>
-            <p class="text-gray-700 leading-relaxed">Sensei Ayumi – Lulusan Sastra Jepang UGM, berpengalaman mengajar lebih dari 7 tahun, ramah dan profesional.</p>
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed">Sensei Ayumi – Lulusan Sastra Jepang UGM, berpengalaman mengajar lebih dari 7 tahun, ramah dan profesional.</p>
           </div>
-          <div class="bg-white rounded-2xl shadow-lg p-8 card-hover">
+          <div class="bg-white rounded-2xl shadow-lg p-8 card-hover dark:bg-gray-800">
             <h3 class="text-2xl font-bold mb-4 text-[#e60012] flex items-center">
               <span class="text-3xl mr-3">🏫</span>
               Sejarah Sekolah
             </h3>
-            <p class="text-gray-700 leading-relaxed">Didirikan tahun 2020, Nihongo Kulon Progo hadir untuk memenuhi kebutuhan belajar bahasa Jepang di wilayah Kulon Progo dan sekitarnya.</p>
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed">Didirikan tahun 2020, Nihongo Kulon Progo hadir untuk memenuhi kebutuhan belajar bahasa Jepang di wilayah Kulon Progo dan sekitarnya.</p>
           </div>
-          <div class="bg-white rounded-2xl shadow-lg p-8 card-hover">
+          <div class="bg-white rounded-2xl shadow-lg p-8 card-hover dark:bg-gray-800">
             <h3 class="text-2xl font-bold mb-4 text-[#e60012] flex items-center">
               <span class="text-3xl mr-3">📍</span>
               Lokasi
             </h3>
-            <p class="text-gray-700">Dalangan, Triharjo, Kec. Wates, Kabupaten Kulon Progo, Daerah Istimewa Yogyakarta</p>
+            <p class="text-gray-700 dark:text-gray-300">Dalangan, Triharjo, Kec. Wates, Kabupaten Kulon Progo, Daerah Istimewa Yogyakarta</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Kontak Section -->
-    <section id="kontak" class="bg-gradient-to-br from-gray-100 to-gray-200 py-16">
+    <section id="kontak" class="bg-gradient-to-br from-gray-100 to-gray-200 py-16 dark:from-gray-800 dark:to-gray-900 fade-in">
       <div class="container mx-auto px-6">
         <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-[#e60012]">Kontak</h2>
         <div class="md:flex md:space-x-12">
           <div class="md:w-1/2 mb-8 md:mb-0">
-            <form class="bg-white rounded-2xl shadow-xl p-8 space-y-6 card-hover">
+            <form class="bg-white rounded-2xl shadow-xl p-8 space-y-6 card-hover dark:bg-gray-800">
               <h3 class="text-2xl font-bold mb-6 text-[#e60012] flex items-center">
                 <span class="text-3xl mr-3">📧</span>
                 Kirim Pesan
               </h3>
               <div>
-                <label class="block mb-2 font-semibold text-gray-700" for="nama">Nama Lengkap</label>
-                <input class="w-full border-2 border-gray-200 rounded-lg px-4 py-3 focus:border-[#e60012] focus:outline-none transition-colors duration-300" type="text" id="nama" name="nama" required>
+                <label class="block mb-2 font-semibold text-gray-700 dark:text-gray-300" for="nama">Nama Lengkap</label>
+                <input class="w-full border-2 border-gray-200 rounded-lg px-4 py-3 focus:border-[#e60012] focus:outline-none transition-colors duration-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" type="text" id="nama" name="nama" required>
               </div>
               <div>
-                <label class="block mb-2 font-semibold text-gray-700" for="email">Email</label>
-                <input class="w-full border-2 border-gray-200 rounded-lg px-4 py-3 focus:border-[#e60012] focus:outline-none transition-colors duration-300" type="email" id="email" name="email" required>
+                <label class="block mb-2 font-semibold text-gray-700 dark:text-gray-300" for="email">Email</label>
+                <input class="w-full border-2 border-gray-200 rounded-lg px-4 py-3 focus:border-[#e60012] focus:outline-none transition-colors duration-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" type="email" id="email" name="email" required>
               </div>
               <div>
-                <label class="block mb-2 font-semibold text-gray-700" for="pesan">Pesan</label>
-                <textarea class="w-full border-2 border-gray-200 rounded-lg px-4 py-3 focus:border-[#e60012] focus:outline-none transition-colors duration-300" id="pesan" name="pesan" rows="4" required></textarea>
+                <label class="block mb-2 font-semibold text-gray-700 dark:text-gray-300" for="pesan">Pesan</label>
+                <textarea class="w-full border-2 border-gray-200 rounded-lg px-4 py-3 focus:border-[#e60012] focus:outline-none transition-colors duration-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" id="pesan" name="pesan" rows="4" required></textarea>
               </div>
-              <button type="submit" class="gradient-bg text-white px-8 py-4 rounded-lg shadow-lg hover:shadow-xl btn-hover font-semibold text-lg w-full">Kirim Pesan</button>
+              <button type="submit" class="gradient-bg text-white px-8 py-4 rounded-lg shadow-lg hover:shadow-xl btn-hover font-semibold text-lg w-full">
+                <span id="submit-text">Kirim Pesan</span>
+                <span id="submit-loading" class="hidden">
+                  <span class="spinner inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"></span>
+                  Mengirim...
+                </span>
+              </button>
             </form>
-            <div class="mt-8 bg-white rounded-2xl shadow-xl p-8 card-hover">
+            <div class="mt-8 bg-white rounded-2xl shadow-xl p-8 card-hover dark:bg-gray-800">
               <h3 class="text-2xl font-bold mb-6 text-[#e60012] flex items-center">
                 <span class="text-3xl mr-3">📞</span>
                 Informasi Kontak
@@ -205,7 +255,7 @@
             </div>
           </div>
           <div class="md:w-1/2">
-            <div class="bg-white rounded-2xl shadow-xl p-8 card-hover">
+            <div class="bg-white rounded-2xl shadow-xl p-8 card-hover dark:bg-gray-800">
               <h3 class="text-2xl font-bold mb-6 text-[#e60012] flex items-center">
                 <span class="text-3xl mr-3">🗺️</span>
                 Lokasi Kami
@@ -243,6 +293,11 @@
       </div>
     </div>
   </footer>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="back-to-top bg-[#e60012] text-white p-3 rounded-full shadow-lg hover:bg-red-700 transition-all duration-300">
+    <span class="text-xl">↑</span>
+  </button>
 
   <script src="main.js"></script>
 </body>
