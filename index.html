@@ -7,49 +7,63 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Sawarabi+Gothic&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { font-family: 'Noto Sans JP', 'Sawarabi Gothic', sans-serif; }
+    body {
+      font-family: 'Noto Sans JP', 'Sawarabi Gothic', sans-serif;
+      background-color: #f9f9f9; /* putih redup */
+      color: #1a1a1a;
+    }
     .gradient-bg { background: linear-gradient(135deg, #e60012 0%, #ff1a1a 100%); }
     .card-hover { transition: all 0.3s ease; }
-    .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                  0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
     .btn-hover { transition: all 0.3s ease; }
     .btn-hover:hover { transform: scale(1.05); }
-    
-    /* Dark mode styles */
-    .dark body { background-color: #1a1a1a; color: #ffffff; }
-    .dark .bg-white { background-color: #2d2d2d; }
-    .dark .bg-gray-50 { background-color: #1a1a1a; }
-    .dark .bg-gray-100 { background-color: #2d2d2d; }
-    .dark .bg-gray-200 { background-color: #404040; }
-    .dark .text-gray-900 { color: #ffffff; }
-    .dark .text-gray-700 { color: #e5e5e5; }
-    .dark .text-gray-600 { color: #d1d5db; }
-    .dark .border-gray-300 { border-color: #404040; }
-    .dark .border-gray-200 { border-color: #404040; }
-    
+
     /* Loading animation */
     .loading { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
-    
+
     /* Fade in animation */
     .fade-in { animation: fadeIn 0.6s ease-in; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     /* Progress bar */
-    .progress-bar { height: 3px; background: linear-gradient(90deg, #e60012, #ff1a1a); position: fixed; top: 0; left: 0; z-index: 9999; }
-    
+    .progress-bar {
+      height: 3px;
+      background: linear-gradient(90deg, #e60012, #ff1a1a);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+    }
+
     /* Back to top button */
-    .back-to-top { position: fixed; bottom: 20px; right: 20px; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
     .back-to-top.show { opacity: 1; visibility: visible; }
-    
+
     /* Smooth scroll */
     html { scroll-behavior: smooth; }
-    
+
     /* Loading spinner */
     .spinner { animation: spin 1s linear infinite; }
     @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
   </style>
 </head>
-<body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen transition-colors duration-300">
+<body class="text-gray-900 flex flex-col min-h-screen transition-colors duration-300">
   <!-- Progress Bar -->
   <div class="progress-bar" id="progress-bar"></div>
 
