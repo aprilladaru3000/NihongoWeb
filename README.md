@@ -1,30 +1,36 @@
-Tentang Proyek
-Proyek ini adalah sebuah latihan untuk membangun front-end dari sebuah website kursus Bahasa Jepang fiktif bernama "Nihongo Kulon Progo". Tujuannya adalah untuk mempraktikkan keterampilan dalam membuat layout yang modern, responsif, dan interaktif menggunakan HTML, CSS, dan JavaScript.
+# Tentang Proyek
 
-Catatan: Proyek ini bersifat portofolio/latihan. Semua informasi seperti nama kursus, harga, jadwal, dan kontak adalah data fiktif.
+Proyek ini merupakan latihan membangun **front-end** dari website kursus Bahasa Jepang fiktif bernama **"Nihongo Kulon Progo"**.  
+Tujuan utama proyek ini adalah mempraktikkan keterampilan membuat layout modern, responsif, dan interaktif menggunakan **HTML**, **CSS**, dan **JavaScript**.
 
-Fitur
-Desain Responsif: Tampilan website dapat menyesuaikan diri dengan berbagai ukuran layar, dari desktop hingga mobile.
+> **Catatan**: Proyek ini bersifat portofolio/latihan. Semua informasi seperti nama kursus, harga, jadwal, dan kontak adalah **fiktif**.
 
-Kalkulator Biaya: Fitur interaktif yang dibuat dengan JavaScript untuk menghitung total biaya kursus berdasarkan kelas dan jumlah peserta.
+---
 
-Kuis Interaktif: Kuis sederhana menggunakan JavaScript untuk menguji pengetahuan dasar pengguna tentang Bahasa Jepang.
+## Fitur
 
-UI Modern: Menggunakan elemen-elemen antarmuka modern seperti:
+- **Desain Responsif**  
+  Menyesuaikan tampilan dari desktop hingga mobile.
 
-Animasi fade-in saat scroll.
+- **Kalkulator Biaya**  
+  Menghitung total biaya kursus berdasarkan kelas dan jumlah peserta (JavaScript).
 
-Efek hover pada kartu dan tombol.
+- **Kuis Interaktif**  
+  Menguji pengetahuan dasar Bahasa Jepang dengan kuis sederhana berbasis JavaScript.
 
-Smooth scrolling untuk navigasi.
+- **UI Modern**  
+  - Animasi fade-in saat scroll.  
+  - Efek hover pada kartu dan tombol.  
+  - Smooth scrolling untuk navigasi.  
+  - Tombol "Back to Top".
 
-Tombol "Back to Top".
+- **Blog & Galeri**  
+  Layout statis untuk menampilkan artikel dan galeri foto.
 
-Blog & Galeri: Layout statis untuk menampilkan artikel dan galeri foto.
+---
 
-🛠️ Teknologi
-HTML5: Untuk struktur konten website.
+## Teknologi
 
-Tailwind CSS: Framework CSS untuk styling dan desain yang cepat.
-
-JavaScript (Vanilla): Untuk membuat fungsionalitas interaktif seperti kalkulator, kuis, dan manipulasi DOM lainnya.
+- **HTML5** – Struktur konten website.  
+- **Tailwind CSS** – Framework CSS untuk styling cepat dan konsisten.  
+- **JavaScript (Vanilla)** – Fungsionalitas interaktif seperti kalkulator, kuis, dan manipulasi DOM.
