@@ -127,7 +127,7 @@
       question.options.forEach((option, index) => {
         const optionDiv = document.createElement('div');
         optionDiv.innerHTML = `
-          <label class="flex items-center p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-[#e60012] transition-colors">
+          <label class="flex items-center p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-[#e60012] transition-colors text-white">
             <input type="radio" name="answer" value="${index}" class="mr-3 text-[#e60012] focus:ring-[#e60012]">
             <span>${option}</span>
           </label>
