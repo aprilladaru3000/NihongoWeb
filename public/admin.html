@@ -3,170 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard - Nihongo Kulon Progo</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Sawarabi+Gothic&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body { font-family: 'Noto Sans JP', 'Sawarabi Gothic', sans-serif; }
-    .gradient-bg { background: linear-gradient(135deg, #e60012 0%, #ff1a1a 100%); }
-    .card-hover { transition: all 0.3s ease; }
-    .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); }
-  </style>
+  <title>Dashboard Admin - Pesan Masuk</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
 </head>
-<body class="bg-gray-50">
-  <!-- Navigation -->
-  <nav class="gradient-bg text-white shadow-lg">
-    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="text-2xl font-bold">Nihongo Kulon Progo - Admin</div>
-      <div class="flex items-center space-x-4">
-        <span id="admin-name">Admin</span>
-        <button onclick="logout()" class="bg-white/20 px-4 py-2 rounded-lg hover:bg-white/30 transition-colors">Logout</button>
-      </div>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-red-600 text-white p-4 shadow-md">
+    <h1 class="text-xl font-bold">📩 Dashboard Admin - Pesan Masuk</h1>
+  </header>
+
+  <!-- Konten -->
+  <main class="flex-grow p-6">
+    <div class="bg-white shadow-md rounded-lg p-4 overflow-x-auto">
+      <h2 class="text-lg font-semibold mb-4">Daftar Pesan</h2>
+      <table class="min-w-full border border-gray-200">
+        <thead>
+          <tr class="bg-gray-200 text-gray-700">
+            <th class="py-2 px-4 border">No</th>
+            <th class="py-2 px-4 border">Nama</th>
+            <th class="py-2 px-4 border">Email</th>
+            <th class="py-2 px-4 border">Pesan</th>
+            <th class="py-2 px-4 border">Tanggal</th>
+          </tr>
+        </thead>
+        <tbody id="pesan-table-body">
+          <tr>
+            <td colspan="5" class="text-center py-4">Memuat data...</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  </nav>
+  </main>
 
-  <!-- Main Content -->
-  <div class="container mx-auto px-6 py-8">
-    <!-- Stats Cards -->
-    <div class="grid md:grid-cols-4 gap-6 mb-8">
-      <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
-        <div class="flex items-center">
-          <div class="text-3xl mr-4">📊</div>
-          <div>
-            <h3 class="text-gray-500 text-sm">Total Pendaftar</h3>
-            <p class="text-2xl font-bold text-[#e60012]" id="total-pendaftar">0</p>
-          </div>
-        </div>
-      </div>
-      <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
-        <div class="flex items-center">
-          <div class="text-3xl mr-4">👥</div>
-          <div>
-            <h3 class="text-gray-500 text-sm">Kelas Aktif</h3>
-            <p class="text-2xl font-bold text-[#e60012]" id="kelas-aktif">4</p>
-          </div>
-        </div>
-      </div>
-      <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
-        <div class="flex items-center">
-          <div class="text-3xl mr-4">💰</div>
-          <div>
-            <h3 class="text-gray-500 text-sm">Pendapatan Bulan Ini</h3>
-            <p class="text-2xl font-bold text-[#e60012]" id="pendapatan">Rp0</p>
-          </div>
-        </div>
-      </div>
-      <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
-        <div class="flex items-center">
-          <div class="text-3xl mr-4">📧</div>
-          <div>
-            <h3 class="text-gray-500 text-sm">Pesan Baru</h3>
-            <p class="text-2xl font-bold text-[#e60012]" id="pesan-baru">0</p>
-          </div>
-        </div>
-      </div>
-    </div>
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white text-center py-3 text-sm">
+    &copy; 2025 Dashboard Admin JLPT N5
+  </footer>
 
-    <!-- Tabs -->
-    <div class="bg-white rounded-xl shadow-lg mb-8">
-      <div class="border-b border-gray-200">
-        <nav class="flex space-x-8 px-6">
-          <button onclick="showTab('pendaftar')" class="tab-btn active py-4 px-2 border-b-2 border-[#e60012] text-[#e60012] font-semibold">
-            Data Pendaftar
-          </button>
-          <button onclick="showTab('pesan')" class="tab-btn py-4 px-2 border-b-2 border-transparent text-gray-500 hover:text-[#e60012] font-semibold">
-            Pesan Kontak
-          </button>
-          <button onclick="showTab('kelas')" class="tab-btn py-4 px-2 border-b-2 border-transparent text-gray-500 hover:text-[#e60012] font-semibold">
-            Manajemen Kelas
-          </button>
-        </nav>
-      </div>
-
-      <!-- Tab Content -->
-      <div class="p-6">
-        <!-- Data Pendaftar Tab -->
-        <div id="pendaftar-tab" class="tab-content">
-          <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold text-gray-800">Data Pendaftar</h2>
-            <button onclick="exportData()" class="bg-[#e60012] text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
-              Export Excel
-            </button>
-          </div>
-          <div class="overflow-x-auto">
-            <table class="w-full table-auto">
-              <thead class="bg-gray-50">
-                <tr>
-                  <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600">Nama</th>
-                  <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600">Email</th>
-                  <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600">Kelas</th>
-                  <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600">Status</th>
-                  <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600">Tanggal Daftar</th>
-                  <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600">Aksi</th>
-                </tr>
-              </thead>
-              <tbody id="pendaftar-table">
-                <!-- Data will be loaded here -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Pesan Kontak Tab -->
-        <div id="pesan-tab" class="tab-content hidden">
-          <h2 class="text-2xl font-bold text-gray-800 mb-6">Pesan Kontak</h2>
-          <div class="space-y-4" id="pesan-list">
-            <!-- Messages will be loaded here -->
-          </div>
-        </div>
-
-        <!-- Manajemen Kelas Tab -->
-        <div id="kelas-tab" class="tab-content hidden">
-          <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold text-gray-800">Manajemen Kelas</h2>
-            <button onclick="addKelas()" class="bg-[#e60012] text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
-              Tambah Kelas
-            </button>
-          </div>
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="kelas-list">
-            <!-- Classes will be loaded here -->
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal for adding/editing class -->
-  <div id="kelas-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-    <div class="bg-white rounded-xl p-8 max-w-md w-full mx-4">
-      <h3 class="text-xl font-bold mb-4" id="modal-title">Tambah Kelas Baru</h3>
-      <form id="kelas-form" class="space-y-4">
-        <div>
-          <label class="block text-sm font-semibold mb-2">Nama Kelas</label>
-          <input type="text" id="nama-kelas" class="w-full border border-gray-300 rounded-lg px-3 py-2" required>
-        </div>
-        <div>
-          <label class="block text-sm font-semibold mb-2">Deskripsi</label>
-          <textarea id="deskripsi-kelas" class="w-full border border-gray-300 rounded-lg px-3 py-2" rows="3" required></textarea>
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label class="block text-sm font-semibold mb-2">Durasi</label>
-            <input type="text" id="durasi-kelas" class="w-full border border-gray-300 rounded-lg px-3 py-2" required>
-          </div>
-          <div>
-            <label class="block text-sm font-semibold mb-2">Harga</label>
-            <input type="number" id="harga-kelas" class="w-full border border-gray-300 rounded-lg px-3 py-2" required>
-          </div>
-        </div>
-        <div class="flex space-x-4 pt-4">
-          <button type="submit" class="flex-1 bg-[#e60012] text-white py-2 rounded-lg hover:bg-red-700">Simpan</button>
-          <button type="button" onclick="closeModal()" class="flex-1 bg-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-400">Batal</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <script src="admin.js"></script>
+  <script src="js/admin.js"></script>
 </body>
-</html> 
+</html>

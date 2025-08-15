@@ -206,26 +206,48 @@
       userAnswers = [];
     }
 
-    // Form submission
+   // Form submission
     const contactForm = document.querySelector('form');
     const submitText = document.getElementById('submit-text');
     const submitLoading = document.getElementById('submit-loading');
 
-    contactForm.addEventListener('submit', function(e) {
+    contactForm.addEventListener('submit', async function(e) {
       e.preventDefault();
       
-      // Show loading state
       submitText.classList.add('hidden');
       submitLoading.classList.remove('hidden');
-      
-      // Simulate form submission
-      setTimeout(() => {
-        alert('Pesan Anda telah terkirim! Kami akan segera merespons.');
+
+      const formData = {
+        nama: document.getElementById('nama').value,
+        email: document.getElementById('email').value,
+        pesan: document.getElementById('pesan').value
+      };
+
+      try {
+        const res = await fetch('http://localhost:5000/api/kontak', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          alert(data.message);
+          contactForm.reset();
+        } else {
+          alert('Gagal mengirim pesan: ' + data.message);
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Terjadi kesalahan koneksi ke server.');
+      } finally {
         submitText.classList.remove('hidden');
         submitLoading.classList.add('hidden');
-        contactForm.reset();
-      }, 2000);
+      }
     });
+
+
 
     // Add fade-in animation to sections on scroll
     const observerOptions = {

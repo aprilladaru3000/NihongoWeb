@@ -7,9 +7,21 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "nodemailer": "^6.9.8",
+    "cors": "^2.8.5",
     "dotenv": "^16.3.1",
-    "cors": "^2.8.5"
-  }
-} 
+    "express": "^4.21.2",
+    "nodemailer": "^6.9.8"
+  },
+  "description": "Proyek ini merupakan latihan membangun **front-end** dari website kursus Bahasa Jepang fiktif bernama **\"Nihongo Kulon Progo\"**.  \r Tujuan utama proyek ini adalah mempraktikkan keterampilan membuat layout modern, responsif, dan interaktif menggunakan **HTML**, **CSS**, dan **JavaScript**.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aprilladaru3000/NihongoWeb.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aprilladaru3000/NihongoWeb/issues"
+  },
+  "homepage": "https://github.com/aprilladaru3000/NihongoWeb#readme"
+}
