@@ -24,9 +24,20 @@ app.post('/api/kontak', (req, res) => {
   res.json({ success: true, message: 'Pesan berhasil dikirim!' });
 });
 
+
 // API admin
 app.get('/api/admin/pesan', (req, res) => {
   res.json(pesanMasuk);
+});
+
+// Endpoint untuk menghapus pesan berdasarkan index
+app.delete('/api/admin/pesan/:index', (req, res) => {
+  const idx = parseInt(req.params.index, 10);
+  if (isNaN(idx) || idx < 0 || idx >= pesanMasuk.length) {
+    return res.status(400).json({ success: false, message: 'Index tidak valid' });
+  }
+  pesanMasuk.splice(idx, 1);
+  res.json({ success: true, message: 'Pesan berhasil dihapus' });
 });
 
 const PORT = 5000;
