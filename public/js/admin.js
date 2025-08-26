@@ -58,5 +58,23 @@ async function deletePesan(index) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', loadPesan);
-setInterval(loadPesan, 10000);
+
+async function loadStatistik() {
+  try {
+    const res = await fetch('/api/admin/statistik');
+    if (!res.ok) throw new Error('Gagal memuat statistik');
+    const data = await res.json();
+    document.getElementById('statistik-pesan').textContent = data.totalPesan;
+    document.getElementById('statistik-visitor').textContent = data.totalVisitors;
+  } catch (err) {
+    console.error('Gagal memuat statistik:', err);
+  }
+}
+
+function loadAll() {
+  loadPesan();
+  loadStatistik();
+}
+
+document.addEventListener('DOMContentLoaded', loadAll);
+setInterval(loadAll, 10000);

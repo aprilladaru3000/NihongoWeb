@@ -14,7 +14,24 @@ app.use(bodyParser.json());
 // Serve file frontend
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 let pesanMasuk = [];
+let totalVisitors = 0;
+
+// Middleware untuk menghitung visitor (hanya untuk halaman utama)
+app.use((req, res, next) => {
+  if (req.path === '/' || req.path === '/index.html') {
+    totalVisitors++;
+  }
+  next();
+});
+// Endpoint statistik sederhana
+app.get('/api/admin/statistik', (req, res) => {
+  res.json({
+    totalPesan: pesanMasuk.length,
+    totalVisitors
+  });
+});
 
 // API menerima pesan
 app.post('/api/kontak', (req, res) => {
