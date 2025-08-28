@@ -32,28 +32,54 @@
         </div>
       </div>
     </div>
-    <div class="bg-white shadow-md rounded-lg p-4 overflow-x-auto">
-      <div class="flex justify-between items-center mb-4">
+    <div class="bg-white shadow-md rounded-lg p-4 overflow-x-auto mb-8">
+      <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-2">
         <h2 class="text-lg font-semibold">Daftar Pesan</h2>
-        <button id="export-csv-btn" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition-colors duration-200">Export CSV</button>
+        <button id="export-csv-btn" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition-colors duration-200 w-full sm:w-auto">Export CSV</button>
       </div>
-      <table class="min-w-full border border-gray-200">
-        <thead>
-          <tr class="bg-gray-200 text-gray-700">
-            <th class="py-2 px-4 border">No</th>
-            <th class="py-2 px-4 border">Nama</th>
-            <th class="py-2 px-4 border">Email</th>
-            <th class="py-2 px-4 border">Pesan</th>
-            <th class="py-2 px-4 border">Tanggal</th>
-            <th class="py-2 px-4 border">Action</th>
-          </tr>
-        </thead>
-        <tbody id="pesan-table-body">
-          <tr>
-            <td colspan="5" class="text-center py-4">Memuat data...</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="overflow-x-auto">
+        <table class="min-w-full border border-gray-200 text-sm">
+          <thead>
+            <tr class="bg-gray-200 text-gray-700">
+              <th class="py-2 px-2 border">No</th>
+              <th class="py-2 px-2 border">Nama</th>
+              <th class="py-2 px-2 border">Email</th>
+              <th class="py-2 px-2 border">Pesan</th>
+              <th class="py-2 px-2 border">Tanggal</th>
+              <th class="py-2 px-2 border">Action</th>
+            </tr>
+          </thead>
+          <tbody id="pesan-table-body">
+            <tr>
+              <td colspan="6" class="text-center py-4">Memuat data...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Log Aktivitas Admin -->
+    <div class="bg-white shadow-md rounded-lg p-4 overflow-x-auto">
+      <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-2">
+        <h2 class="text-lg font-semibold">Log Aktivitas Admin</h2>
+        <button id="clear-log-btn" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition-colors duration-200 w-full sm:w-auto">Clear Log</button>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="min-w-full border border-gray-200 text-sm">
+          <thead>
+            <tr class="bg-gray-200 text-gray-700">
+              <th class="py-2 px-2 border">Waktu</th>
+              <th class="py-2 px-2 border">Aksi</th>
+              <th class="py-2 px-2 border">Detail</th>
+            </tr>
+          </thead>
+          <tbody id="log-table-body">
+            <tr>
+              <td colspan="3" class="text-center py-4">Belum ada aktivitas</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </main>
 
