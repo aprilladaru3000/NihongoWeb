@@ -17,17 +17,75 @@ async function loadPesan() {
         data.forEach((pesan, index) => {
           const row = document.createElement('tr');
           row.innerHTML = `
-            <td class="border px-4 py-2">${index + 1}</td>
-            <td class="border px-4 py-2">${pesan.nama}</td>
-            <td class="border px-4 py-2">${pesan.email}</td>
-            <td class="border px-4 py-2">${pesan.pesan}</td>
-            <td class="border px-4 py-2">${pesan.tanggal || ''}</td>
-            <td class="border px-4 py-2">
+            <td class="border px-2 py-2 text-center">
+              <input type="checkbox" class="pesan-checkbox" data-index="${index}">
+            </td>
+            <td class="border px-2 py-2">${index + 1}</td>
+            <td class="border px-2 py-2">${pesan.nama}</td>
+            <td class="border px-2 py-2">${pesan.email}</td>
+            <td class="border px-2 py-2">${pesan.pesan}</td>
+            <td class="border px-2 py-2">${pesan.tanggal || ''}</td>
+            <td class="border px-2 py-2">
               <button class="delete-btn" data-index="${index}" style="color:red;">Delete</button>
             </td>
           `;
           tableBody.appendChild(row);
         });
+        // Event select all
+        const selectAll = document.getElementById('select-all-pesan');
+        if (selectAll) {
+          selectAll.checked = false;
+          selectAll.addEventListener('change', function() {
+            document.querySelectorAll('.pesan-checkbox').forEach(cb => {
+              cb.checked = selectAll.checked;
+            });
+          });
+        }
+// Bulk Delete
+async function bulkDeletePesan() {
+  const checkboxes = document.querySelectorAll('.pesan-checkbox:checked');
+  if (checkboxes.length === 0) {
+    alert('Pilih pesan yang ingin dihapus!');
+    return;
+  }
+  if (!confirm('Yakin ingin menghapus pesan terpilih?')) return;
+  // Hapus dari index terbesar agar tidak bergeser
+  const indices = Array.from(checkboxes).map(cb => parseInt(cb.getAttribute('data-index'))).sort((a,b)=>b-a);
+  for (const idx of indices) {
+    await deletePesan(idx);
+  }
+  loadPesan();
+}
+
+// Bulk Export
+function bulkExportPesanToCSV() {
+  const checkboxes = document.querySelectorAll('.pesan-checkbox:checked');
+  if (checkboxes.length === 0) {
+    alert('Pilih pesan yang ingin diexport!');
+    return;
+  }
+  const data = window._pesanData || [];
+  const indices = Array.from(checkboxes).map(cb => parseInt(cb.getAttribute('data-index')));
+  const selected = indices.map(i => data[i]);
+  const header = ['No', 'Nama', 'Email', 'Pesan', 'Tanggal'];
+  const rows = selected.map((pesan, i) => [
+    i + 1,
+    '"' + (pesan.nama || '').replace(/"/g, '""') + '"',
+    '"' + (pesan.email || '').replace(/"/g, '""') + '"',
+    '"' + (pesan.pesan || '').replace(/"/g, '""') + '"',
+    '"' + (pesan.tanggal || '') + '"'
+  ]);
+  let csv = header.join(',') + '\n' + rows.map(r => r.join(',')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'pesan_terpilih.csv';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
         // Simpan data pesan ke window untuk export
         window._pesanData = data;
 // Export data pesan ke CSV
@@ -111,4 +169,8 @@ setInterval(loadAll, 10000);
 document.addEventListener('DOMContentLoaded', function() {
   const btn = document.getElementById('export-csv-btn');
   if (btn) btn.addEventListener('click', exportPesanToCSV);
+  const bulkDeleteBtn = document.getElementById('bulk-delete-btn');
+  if (bulkDeleteBtn) bulkDeleteBtn.addEventListener('click', bulkDeletePesan);
+  const bulkExportBtn = document.getElementById('bulk-export-btn');
+  if (bulkExportBtn) bulkExportBtn.addEventListener('click', bulkExportPesanToCSV);
 });
