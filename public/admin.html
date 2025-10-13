@@ -89,6 +89,40 @@
   </main>
 
   <!-- Footer -->
+  <!-- Modal for message details -->
+  <div id="pesan-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-lg max-w-xl w-full mx-4">
+      <div class="flex justify-between items-center p-4 border-b">
+        <h3 class="text-lg font-semibold">Detail Pesan</h3>
+        <button id="modal-close-btn" class="text-gray-600 hover:text-gray-800">✕</button>
+      </div>
+      <div class="p-4 space-y-3">
+        <div>
+          <div class="text-sm text-gray-500">Nama</div>
+          <div id="modal-nama" class="font-medium">-</div>
+        </div>
+        <div>
+          <div class="text-sm text-gray-500">Email</div>
+          <div class="flex items-center justify-between">
+            <div id="modal-email" class="font-medium">-</div>
+            <button id="modal-copy-email" class="ml-2 bg-blue-500 text-white px-3 py-1 rounded text-sm">Copy</button>
+          </div>
+        </div>
+        <div>
+          <div class="text-sm text-gray-500">Tanggal</div>
+          <div id="modal-tanggal" class="font-medium">-</div>
+        </div>
+        <div>
+          <div class="text-sm text-gray-500">Pesan</div>
+          <pre id="modal-pesan" class="whitespace-pre-wrap bg-gray-50 p-3 rounded text-sm">-</pre>
+        </div>
+      </div>
+      <div class="p-4 border-t text-right">
+        <button id="modal-close-btn-2" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded">Tutup</button>
+      </div>
+    </div>
+  </div>
+
   <footer class="bg-gray-800 text-white text-center py-3 text-sm">
     &copy; 2025 Dashboard Admin JLPT N5
   </footer>
