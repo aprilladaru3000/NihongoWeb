@@ -88,6 +88,31 @@ function bulkExportPesanToCSV() {
 }
         // Simpan data pesan ke window untuk export
         window._pesanData = data;
+
+        // Make rows clickable to open detail modal
+        document.querySelectorAll('#pesan-table-body tr').forEach((tr, i) => {
+          // skip header placeholder rows
+          const checkbox = tr.querySelector('.pesan-checkbox');
+          if (!checkbox) return;
+          tr.style.cursor = 'pointer';
+          tr.addEventListener('click', (e) => {
+            // if click on input or button, ignore to avoid double actions
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
+            openPesanModal(parseInt(checkbox.getAttribute('data-index')));
+          });
+          // also add a small view button
+          const actionCell = tr.querySelector('td:last-child');
+          if (actionCell) {
+            const viewBtn = document.createElement('button');
+            viewBtn.textContent = 'View';
+            viewBtn.className = 'mr-2 bg-gray-200 px-2 py-1 rounded text-sm';
+            viewBtn.addEventListener('click', (ev) => {
+              ev.stopPropagation();
+              openPesanModal(parseInt(checkbox.getAttribute('data-index')));
+            });
+            actionCell.insertBefore(viewBtn, actionCell.firstChild);
+          }
+        });
 // Export data pesan ke CSV
 function exportPesanToCSV() {
   const data = window._pesanData || [];
@@ -157,6 +182,35 @@ async function loadStatistik() {
   }
 }
 
+// Modal handlers
+function openPesanModal(index) {
+  const data = window._pesanData || [];
+  const p = data[index];
+  if (!p) return;
+  document.getElementById('modal-nama').textContent = p.nama || '-';
+  document.getElementById('modal-email').textContent = p.email || '-';
+  document.getElementById('modal-tanggal').textContent = p.tanggal || '-';
+  document.getElementById('modal-pesan').textContent = p.pesan || '-';
+  const modal = document.getElementById('pesan-modal');
+  modal.classList.remove('hidden');
+}
+
+function closePesanModal() {
+  const modal = document.getElementById('pesan-modal');
+  modal.classList.add('hidden');
+}
+
+// copy email
+function copyModalEmail() {
+  const email = document.getElementById('modal-email').textContent || '';
+  if (!email) return;
+  navigator.clipboard.writeText(email).then(() => {
+    alert('Email disalin ke clipboard');
+  }).catch(() => {
+    alert('Gagal menyalin email');
+  });
+}
+
 function loadAll() {
   loadPesan();
   loadStatistik();
@@ -173,4 +227,14 @@ document.addEventListener('DOMContentLoaded', function() {
   if (bulkDeleteBtn) bulkDeleteBtn.addEventListener('click', bulkDeletePesan);
   const bulkExportBtn = document.getElementById('bulk-export-btn');
   if (bulkExportBtn) bulkExportBtn.addEventListener('click', bulkExportPesanToCSV);
+  const modalClose = document.getElementById('modal-close-btn');
+  if (modalClose) modalClose.addEventListener('click', closePesanModal);
+  const modalClose2 = document.getElementById('modal-close-btn-2');
+  if (modalClose2) modalClose2.addEventListener('click', closePesanModal);
+  const modalCopy = document.getElementById('modal-copy-email');
+  if (modalCopy) modalCopy.addEventListener('click', copyModalEmail);
+  // close modal on ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closePesanModal();
+  });
 });
