@@ -34,3 +34,14 @@ Tujuan utama proyek ini adalah mempraktikkan keterampilan membuat layout modern,
 - **HTML5** – Struktur konten website.  
 - **Tailwind CSS** – Framework CSS untuk styling cepat dan konsisten.  
 - **JavaScript (Vanilla)** – Fungsionalitas interaktif seperti kalkulator, kuis, dan manipulasi DOM.
+
+---
+
+## Perubahan Terbaru (admin)
+
+- Menambahkan fitur admin: "Detail Pesan" modal pada `public/admin.html`.
+- Tombol "Reply" pada modal membuka klien email default menggunakan `mailto:` dengan subjek dan isi pesan terisi otomatis.
+- Tombol "Copy" menyalin alamat email ke clipboard.
+- Fitur ini diimplementasikan di `public/js/admin.js` dengan fungsi `openPesanModal`, `copyModalEmail`, dan `replyModalEmail`.
+
+Silakan lihat `public/admin.html` dan `public/js/admin.js` untuk detail implementasi.

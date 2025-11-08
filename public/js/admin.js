@@ -211,6 +211,21 @@ function copyModalEmail() {
   });
 }
 
+// Reply via mailto: opens default mail client with prefilled subject and body
+function replyModalEmail() {
+  const email = document.getElementById('modal-email').textContent || '';
+  const nama = document.getElementById('modal-nama').textContent || '';
+  const pesan = document.getElementById('modal-pesan').textContent || '';
+  if (!email) {
+    alert('Email tidak tersedia');
+    return;
+  }
+  const subject = `Balasan untuk pesan Anda`;
+  const body = `Halo ${nama},%0D%0A%0D%0ATerima kasih telah menghubungi kami. Berikut adalah ringkasan pesan Anda:%0D%0A%0D%0A${encodeURIComponent(pesan)}%0D%0A%0D%0AMohon balas jika ada pertanyaan.`;
+  const mailto = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(subject)}&body=${body}`;
+  window.location.href = mailto;
+}
+
 function loadAll() {
   loadPesan();
   loadStatistik();
@@ -233,6 +248,8 @@ document.addEventListener('DOMContentLoaded', function() {
   if (modalClose2) modalClose2.addEventListener('click', closePesanModal);
   const modalCopy = document.getElementById('modal-copy-email');
   if (modalCopy) modalCopy.addEventListener('click', copyModalEmail);
+  const modalReply = document.getElementById('modal-reply');
+  if (modalReply) modalReply.addEventListener('click', replyModalEmail);
   // close modal on ESC
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closePesanModal();
