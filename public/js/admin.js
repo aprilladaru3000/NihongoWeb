@@ -155,6 +155,91 @@ function exportPesanToCSV() {
   }
 }
 
+// Filter messages based on search criteria
+function filterPesan() {
+  const nama = document.getElementById('filter-nama')?.value.toLowerCase() || '';
+  const email = document.getElementById('filter-email')?.value.toLowerCase() || '';
+  const dateFrom = document.getElementById('filter-date-from')?.value || '';
+  const dateTo = document.getElementById('filter-date-to')?.value || '';
+  
+  const data = window._pesanData || [];
+  const tableBody = document.getElementById('pesan-table-body');
+  tableBody.innerHTML = '';
+
+  if (data.length === 0) {
+    tableBody.innerHTML = `<tr><td colspan="7" class="text-center py-4">Belum ada pesan masuk</td></tr>`;
+    return;
+  }
+
+  const filtered = data.filter((pesan, index) => {
+    const pesanNama = (pesan.nama || '').toLowerCase();
+    const pesanEmail = (pesan.email || '').toLowerCase();
+    const pesanDate = pesan.tanggal || '';
+    
+    const matchNama = nama === '' || pesanNama.includes(nama);
+    const matchEmail = email === '' || pesanEmail.includes(email);
+    
+    let matchDate = true;
+    if (dateFrom || dateTo) {
+      const pDate = new Date(pesanDate);
+      if (dateFrom) {
+        const fDate = new Date(dateFrom);
+        matchDate = matchDate && pDate >= fDate;
+      }
+      if (dateTo) {
+        const tDate = new Date(dateTo);
+        tDate.setDate(tDate.getDate() + 1);
+        matchDate = matchDate && pDate < tDate;
+      }
+    }
+
+    return matchNama && matchEmail && matchDate;
+  });
+
+  if (filtered.length === 0) {
+    tableBody.innerHTML = `<tr><td colspan="7" class="text-center py-4">Tidak ada pesan yang cocok</td></tr>`;
+    return;
+  }
+
+  filtered.forEach((pesan, i) => {
+    const originalIndex = data.indexOf(pesan);
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td class="border px-2 py-2 text-center">
+        <input type="checkbox" class="pesan-checkbox" data-index="${originalIndex}">
+      </td>
+      <td class="border px-2 py-2">${i + 1}</td>
+      <td class="border px-2 py-2">${pesan.nama}</td>
+      <td class="border px-2 py-2">${pesan.email}</td>
+      <td class="border px-2 py-2">${pesan.pesan}</td>
+      <td class="border px-2 py-2">${pesan.tanggal || ''}</td>
+      <td class="border px-2 py-2">
+        <button class="delete-btn" data-index="${originalIndex}" style="color:red;">Delete</button>
+      </td>
+    `;
+    tableBody.appendChild(row);
+  });
+
+  // Re-attach delete handlers
+  document.querySelectorAll('.delete-btn').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      const idx = e.target.getAttribute('data-index');
+      if (confirm('Yakin ingin menghapus pesan ini?')) {
+        await deletePesan(idx);
+      }
+    });
+  });
+}
+
+// Clear filters and reload all messages
+function clearFilters() {
+  document.getElementById('filter-nama').value = '';
+  document.getElementById('filter-email').value = '';
+  document.getElementById('filter-date-from').value = '';
+  document.getElementById('filter-date-to').value = '';
+  loadPesan();
+}
+
 
 async function deletePesan(index) {
   try {
@@ -250,6 +335,17 @@ document.addEventListener('DOMContentLoaded', function() {
   if (modalCopy) modalCopy.addEventListener('click', copyModalEmail);
   const modalReply = document.getElementById('modal-reply');
   if (modalReply) modalReply.addEventListener('click', replyModalEmail);
+  // Filter events
+  const filterApply = document.getElementById('filter-apply-btn');
+  if (filterApply) filterApply.addEventListener('click', filterPesan);
+  const filterClear = document.getElementById('filter-clear-btn');
+  if (filterClear) filterClear.addEventListener('click', clearFilters);
+  // Real-time filter on input (optional, comment out if too slow)
+  const filterInputs = ['filter-nama', 'filter-email', 'filter-date-from', 'filter-date-to'];
+  filterInputs.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('keyup', filterPesan);
+  });
   // close modal on ESC
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closePesanModal();

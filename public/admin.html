@@ -41,6 +41,32 @@
           <button id="export-csv-btn" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition-colors duration-200 w-full sm:w-auto">Export All CSV</button>
         </div>
       </div>
+      <!-- Search & Filter Section -->
+      <div class="bg-gray-50 p-4 rounded mb-4 border border-gray-200">
+        <h3 class="text-sm font-semibold mb-3">🔍 Cari & Filter</h3>
+        <div class="grid md:grid-cols-4 gap-3">
+          <div>
+            <label class="text-xs text-gray-600">Nama</label>
+            <input type="text" id="filter-nama" placeholder="Cari nama..." class="w-full border rounded px-2 py-1 text-sm">
+          </div>
+          <div>
+            <label class="text-xs text-gray-600">Email</label>
+            <input type="text" id="filter-email" placeholder="Cari email..." class="w-full border rounded px-2 py-1 text-sm">
+          </div>
+          <div>
+            <label class="text-xs text-gray-600">Dari Tanggal</label>
+            <input type="date" id="filter-date-from" class="w-full border rounded px-2 py-1 text-sm">
+          </div>
+          <div>
+            <label class="text-xs text-gray-600">Sampai Tanggal</label>
+            <input type="date" id="filter-date-to" class="w-full border rounded px-2 py-1 text-sm">
+          </div>
+        </div>
+        <div class="flex gap-2 mt-3">
+          <button id="filter-apply-btn" class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded text-sm">Terapkan Filter</button>
+          <button id="filter-clear-btn" class="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded text-sm">Reset</button>
+        </div>
+      </div>
       <div class="overflow-x-auto">
         <table class="min-w-full border border-gray-200 text-sm">
           <thead>

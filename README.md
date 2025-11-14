@@ -39,9 +39,12 @@ Tujuan utama proyek ini adalah mempraktikkan keterampilan membuat layout modern,
 
 ## Perubahan Terbaru (admin)
 
+- Menambahkan fitur search & filter untuk pesan: filter berdasarkan nama, email, dan rentang tanggal.
+- Tombol "Terapkan Filter" dan "Reset" untuk menerapkan atau membersihkan filter.
+- Real-time filtering saat mengetik di field filter.
 - Menambahkan fitur admin: "Detail Pesan" modal pada `public/admin.html`.
 - Tombol "Reply" pada modal membuka klien email default menggunakan `mailto:` dengan subjek dan isi pesan terisi otomatis.
 - Tombol "Copy" menyalin alamat email ke clipboard.
-- Fitur ini diimplementasikan di `public/js/admin.js` dengan fungsi `openPesanModal`, `copyModalEmail`, dan `replyModalEmail`.
+- Fitur ini diimplementasikan di `public/js/admin.js` dengan fungsi `openPesanModal`, `copyModalEmail`, `replyModalEmail`, `filterPesan`, dan `clearFilters`.
 
 Silakan lihat `public/admin.html` dan `public/js/admin.js` untuk detail implementasi.
