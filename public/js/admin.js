@@ -351,3 +351,33 @@ document.addEventListener('DOMContentLoaded', function() {
     if (e.key === 'Escape') closePesanModal();
   });
 });
+
+function sortPesan(criteria) {
+  const tableBody = document.getElementById('pesan-table-body');
+  const rows = Array.from(tableBody.querySelectorAll('tr'));
+
+  rows.sort((a, b) => {
+    const getValue = (row, index) => row.children[index]?.textContent.trim().toLowerCase();
+
+    switch (criteria) {
+      case 'name':
+        return getValue(a, 2).localeCompare(getValue(b, 2));
+      case 'email':
+        return getValue(a, 3).localeCompare(getValue(b, 3));
+      case 'date':
+        return new Date(getValue(a, 5)) - new Date(getValue(b, 5));
+      default:
+        return 0;
+    }
+  });
+
+  rows.forEach(row => tableBody.appendChild(row));
+}
+
+// Event listener for sorting
+const sortOptions = document.getElementById('sort-options');
+if (sortOptions) {
+  sortOptions.addEventListener('change', () => {
+    sortPesan(sortOptions.value);
+  });
+}

@@ -27,6 +27,9 @@ Tujuan utama proyek ini adalah mempraktikkan keterampilan membuat layout modern,
 - **Blog & Galeri**  
   Layout statis untuk menampilkan artikel dan galeri foto.
 
+- **Sorting Messages**  
+  Admin dapat mengurutkan pesan berdasarkan nama, email, atau tanggal menggunakan dropdown di halaman admin.
+
 ---
 
 ## Teknologi
@@ -46,5 +49,7 @@ Tujuan utama proyek ini adalah mempraktikkan keterampilan membuat layout modern,
 - Tombol "Reply" pada modal membuka klien email default menggunakan `mailto:` dengan subjek dan isi pesan terisi otomatis.
 - Tombol "Copy" menyalin alamat email ke clipboard.
 - Fitur ini diimplementasikan di `public/js/admin.js` dengan fungsi `openPesanModal`, `copyModalEmail`, `replyModalEmail`, `filterPesan`, dan `clearFilters`.
+- **Sorting Messages**  
+  Admin dapat mengurutkan pesan berdasarkan nama, email, atau tanggal menggunakan dropdown di halaman admin.
 
-Silakan lihat `public/admin.html` dan `public/js/admin.js` untuk detail implementasi.
+Silakan lihat `public/admin.html` dan `public/js/admin.js` untuk detail implementasi

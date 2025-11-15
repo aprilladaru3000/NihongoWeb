@@ -67,6 +67,14 @@
           <button id="filter-clear-btn" class="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded text-sm">Reset</button>
         </div>
       </div>
+      <div class="flex gap-2 mt-3">
+        <label for="sort-options" class="text-xs text-gray-600">Urutkan Berdasarkan:</label>
+        <select id="sort-options" class="border rounded px-2 py-1 text-sm">
+          <option value="date">Tanggal</option>
+          <option value="name">Nama</option>
+          <option value="email">Email</option>
+        </select>
+      </div>
       <div class="overflow-x-auto">
         <table class="min-w-full border border-gray-200 text-sm">
           <thead>
