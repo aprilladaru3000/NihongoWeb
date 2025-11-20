@@ -381,3 +381,80 @@ if (sortOptions) {
     sortPesan(sortOptions.value);
   });
 }
+
+let currentPage = 1;
+const itemsPerPage = 5;
+let totalPages = 1;
+
+function renderPesan(data) {
+  const tableBody = document.getElementById('pesan-table-body');
+  tableBody.innerHTML = '';
+
+  if (!Array.isArray(data) || data.length === 0) {
+    tableBody.innerHTML = `<tr><td colspan="5" class="text-center py-4">Belum ada pesan masuk</td></tr>`;
+    return;
+  }
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedData = data.slice(startIndex, endIndex);
+
+  paginatedData.forEach((pesan, index) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td class="border px-2 py-2 text-center">
+        <input type="checkbox" class="pesan-checkbox" data-index="${startIndex + index}">
+      </td>
+      <td class="border px-2 py-2">${startIndex + index + 1}</td>
+      <td class="border px-2 py-2">${pesan.nama}</td>
+      <td class="border px-2 py-2">${pesan.email}</td>
+      <td class="border px-2 py-2">${pesan.pesan}</td>
+      <td class="border px-2 py-2">${pesan.tanggal || ''}</td>
+      <td class="border px-2 py-2">
+        <button class="delete-btn" data-index="${startIndex + index}" style="color:red;">Delete</button>
+      </td>
+    `;
+    tableBody.appendChild(row);
+  });
+
+  document.getElementById('pagination-info').textContent = `Page ${currentPage} of ${totalPages}`;
+}
+
+function setupPaginationControls(data) {
+  totalPages = Math.ceil(data.length / itemsPerPage);
+
+  const prevBtn = document.getElementById('prev-page-btn');
+  const nextBtn = document.getElementById('next-page-btn');
+
+  prevBtn.disabled = currentPage === 1;
+  nextBtn.disabled = currentPage === totalPages;
+
+  prevBtn.addEventListener('click', () => {
+    if (currentPage > 1) {
+      currentPage--;
+      renderPesan(data);
+    }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (currentPage < totalPages) {
+      currentPage++;
+      renderPesan(data);
+    }
+  });
+}
+
+async function loadPesanWithPagination() {
+  try {
+    const res = await fetch('/api/admin/pesan');
+    if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+
+    const data = await res.json();
+    setupPaginationControls(data);
+    renderPesan(data);
+  } catch (error) {
+    console.error('Error loading messages:', error);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', loadPesanWithPagination);

@@ -30,6 +30,9 @@ Tujuan utama proyek ini adalah mempraktikkan keterampilan membuat layout modern,
 - **Sorting Messages**  
   Admin dapat mengurutkan pesan berdasarkan nama, email, atau tanggal menggunakan dropdown di halaman admin.
 
+- **Pagination for Messages**  
+  Admin can navigate through messages using pagination controls (Previous/Next buttons) to view a limited number of messages per page.
+
 ---
 
 ## Teknologi

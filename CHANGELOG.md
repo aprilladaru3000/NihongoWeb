@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 - Add simple analytics counters (total messages and total visitors) on the admin dashboard.
 - Add activity log stored in localStorage for admin actions (delete, export).
 - Add sorting feature for messages: sort by name, email, or date (`public/admin.html`, `public/js/admin.js`).
+- Add pagination feature for messages: navigate through messages using Previous/Next buttons (`public/admin.html`, `public/js/admin.js`).
 
 ## [2025-11-14] - Unreleased
 
