@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Admin - Pesan Masuk</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <style>
+    #image-gallery img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    #image-gallery img:hover {
+      transform: scale(1.05);
+    }
+  </style>
 </head>
 <body class="bg-gray-100 min-h-screen flex flex-col">
 
@@ -123,6 +135,14 @@
             </tr>
           </tbody>
         </table>
+      </div>
+    </div>
+
+    <!-- Image Gallery Section -->
+    <div class="bg-white shadow-md rounded-lg p-4 overflow-x-auto mt-6">
+      <h2 class="text-lg font-semibold mb-4">Image Gallery</h2>
+      <div id="image-gallery" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <!-- Images will be dynamically loaded here -->
       </div>
     </div>
   </main>

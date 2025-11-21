@@ -458,3 +458,43 @@ async function loadPesanWithPagination() {
 }
 
 document.addEventListener('DOMContentLoaded', loadPesanWithPagination);
+
+function loadImageGallery() {
+  const gallery = document.getElementById('image-gallery');
+  const imagePaths = [
+    'assets/b1.jpg',
+    'assets/b2.jpg',
+    'assets/b3.jpg',
+    'assets/b4.jpg',
+    'assets/b5.jpg',
+    'assets/b6.jpg',
+    'assets/hero.jpg',
+    'assets/worker.jpg',
+    'assets/worker2.jpg'
+  ];
+
+  gallery.innerHTML = '';
+
+  imagePaths.forEach((path) => {
+    const img = document.createElement('img');
+    img.src = path;
+    img.alt = 'Gallery Image';
+    img.className = 'rounded shadow-md cursor-pointer';
+    img.addEventListener('click', () => previewImage(path));
+    gallery.appendChild(img);
+  });
+}
+
+function previewImage(imagePath) {
+  const modal = document.createElement('div');
+  modal.className = 'fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center';
+  modal.innerHTML = `
+    <div class="relative">
+      <img src="${imagePath}" alt="Preview" class="max-w-full max-h-screen rounded">
+      <button class="absolute top-2 right-2 bg-white text-black px-2 py-1 rounded" onclick="this.parentElement.parentElement.remove()">Close</button>
+    </div>
+  `;
+  document.body.appendChild(modal);
+}
+
+document.addEventListener('DOMContentLoaded', loadImageGallery);
