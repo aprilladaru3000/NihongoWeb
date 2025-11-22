@@ -16,6 +16,18 @@
     #image-gallery img:hover {
       transform: scale(1.05);
     }
+
+    #upload-area {
+      transition: background-color 0.3s ease;
+    }
+
+    #upload-area:hover {
+      background-color: #f9f9f9;
+    }
+
+    #upload-area.bg-gray-100 {
+      background-color: #f7fafc;
+    }
   </style>
 </head>
 <body class="bg-gray-100 min-h-screen flex flex-col">
@@ -143,6 +155,15 @@
       <h2 class="text-lg font-semibold mb-4">Image Gallery</h2>
       <div id="image-gallery" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
         <!-- Images will be dynamically loaded here -->
+      </div>
+    </div>
+
+    <!-- Upload Images Section -->
+    <div class="bg-white shadow-md rounded-lg p-4 overflow-x-auto mt-6">
+      <h2 class="text-lg font-semibold mb-4">Upload Images</h2>
+      <div id="upload-area" class="border-2 border-dashed border-gray-400 rounded-lg p-6 text-center cursor-pointer">
+        <p class="text-gray-600">Drag and drop images here, or click to select files</p>
+        <input type="file" id="file-input" class="hidden" accept="image/*" multiple>
       </div>
     </div>
   </main>

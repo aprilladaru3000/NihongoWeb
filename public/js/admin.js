@@ -497,4 +497,49 @@ function previewImage(imagePath) {
   document.body.appendChild(modal);
 }
 
-document.addEventListener('DOMContentLoaded', loadImageGallery);
+function setupDragAndDrop() {
+  const uploadArea = document.getElementById('upload-area');
+  const fileInput = document.getElementById('file-input');
+  const gallery = document.getElementById('image-gallery');
+
+  uploadArea.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    uploadArea.classList.add('bg-gray-100');
+  });
+
+  uploadArea.addEventListener('dragleave', () => {
+    uploadArea.classList.remove('bg-gray-100');
+  });
+
+  uploadArea.addEventListener('drop', (e) => {
+    e.preventDefault();
+    uploadArea.classList.remove('bg-gray-100');
+    handleFiles(e.dataTransfer.files);
+  });
+
+  uploadArea.addEventListener('click', () => fileInput.click());
+
+  fileInput.addEventListener('change', () => handleFiles(fileInput.files));
+
+  function handleFiles(files) {
+    Array.from(files).forEach((file) => {
+      if (!file.type.startsWith('image/')) {
+        alert('Only image files are allowed!');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.alt = 'Uploaded Image';
+        img.className = 'rounded shadow-md cursor-pointer';
+        img.addEventListener('click', () => previewImage(e.target.result));
+        gallery.appendChild(img);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+}
+
+document.addEventListener('DOMContentLoaded', setupDragAndDrop);

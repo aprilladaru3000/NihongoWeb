@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 - Add sorting feature for messages: sort by name, email, or date (`public/admin.html`, `public/js/admin.js`).
 - Add pagination feature for messages: navigate through messages using Previous/Next buttons (`public/admin.html`, `public/js/admin.js`).
 - Add image gallery feature: dynamically load images from the `assets` folder and preview them in a modal (`public/admin.html`, `public/js/admin.js`).
+- Add drag-and-drop image upload feature: upload images to the gallery by dragging and dropping files or selecting them via a file picker (`public/admin.html`, `public/js/admin.js`).
 
 ## [2025-11-14] - Unreleased
 

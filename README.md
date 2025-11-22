@@ -30,6 +30,9 @@ Tujuan utama proyek ini adalah mempraktikkan keterampilan membuat layout modern,
 - **Image Gallery**  
   Admin can view an interactive image gallery with images dynamically loaded from the `assets` folder. Clicking an image opens a preview modal.
 
+- **Drag-and-Drop Image Upload**  
+  Admins can upload images to the gallery by dragging and dropping files or selecting them via a file picker.
+
 - **Sorting Messages**  
   Admin dapat mengurutkan pesan berdasarkan nama, email, atau tanggal menggunakan dropdown di halaman admin.
 
